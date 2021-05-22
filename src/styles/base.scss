@@ -35,7 +35,7 @@ h1, h2, h3, h4, h5, h6, p {
 
 img {
   display: block;
-  width: 100%;
+  max-width: 100%;
   height: auto;
 }
 
@@ -44,6 +44,18 @@ img {
 }
 .list {
   margin: 0;
+  padding: 0;
   list-style: none;
 }
 
+/* полоса прокрутки (скроллбар) */
+::-webkit-scrollbar {
+  width: 5px;
+  background-color: transparent;
+}
+
+/* ползунок скроллбара */
+::-webkit-scrollbar-thumb {
+  background-color: orangered;
+  border-radius: 9em;
+}
