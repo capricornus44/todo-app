@@ -26,6 +26,13 @@
   align-self: center;
   flex-wrap: wrap;
   margin-left: 5%;
+  
+  @media screen and (max-width: 640px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
+  }
 }
 
 .completed {

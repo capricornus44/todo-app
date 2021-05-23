@@ -11,6 +11,10 @@
 
   background-color: rgb(180,182, 218);
   background-image: radial-gradient(circle, hsla(237, 34%, 78%, 0.9) 0%, hsla(219, 88%, 94%, 0.9) 100%);
+
+  @media screen and (max-width: 640px) {
+    margin-right: 0;
+  }
 }
 
 .item__text {

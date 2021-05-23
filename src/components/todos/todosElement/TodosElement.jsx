@@ -1,4 +1,5 @@
 import React, {useRef} from 'react';
+import {motion} from "framer-motion";
 import "./TodoElement.scss"
 import {AiFillEdit, IoCheckmarkDoneSharp, IoClose} from "react-icons/all";
 
@@ -20,7 +21,13 @@ function TodosElement(props) {
 
     return (
         <>
-            <li key={todo.id} className="tasks__item">
+            <motion.li
+                initial={{x: "150vw", transition: {type: "spring", duration: 1.5}}}
+                animate={{x: "0", transition: {type: "spring", duration: 1.5}}}
+                whileHover={{scale: 0.9, transition: {type: "spring", duration: 0.25}}}
+                exit={{x: "-60vw", scale: [1, 0], transition: {type: "spring", duration: 0.5, backgroundColor: "rgba(255, 0, 0, 1)"}}}
+                key={todo.id}
+                className="tasks__item">
                 <textarea
                     className="item__text"
                     ref={inputRef}
@@ -29,14 +36,39 @@ function TodosElement(props) {
                     onKeyPress={(e) => edit(todo.id, inputRef.current.value, e)}
                 />
                 <div className="item__btn-box">
-                    <button className="item__btn"  onClick={() => textAreaChangeFocus()}><AiFillEdit/></button>
+                    <motion.button
+                        whileHover={{scale: 1.1}}
+                        whileTap={{scale: 0.9}}
+                        className="item__btn"
+                        onClick={() => textAreaChangeFocus()}
+                    >
+                        <AiFillEdit/>
+                     </motion.button>
+
                     {todo.completed === false && (
-                        <button className="item__btn" style={{color: "green"}} onClick={() => completeTodo(todo.id)}><IoCheckmarkDoneSharp/></button>
+                        <motion.button
+                            whileHover={{scale: 1.1}}
+                            whileTap={{scale: 0.9}}
+                            className="item__btn"
+                            style={{color: "green"}}
+                            onClick={() => completeTodo(todo.id)}
+                        >
+                            <IoCheckmarkDoneSharp/>
+                        </motion.button>
                     )}
-                    <button className="item__btn" style={{color: "red"}} onClick={() => deleteTodo(todo.id)}><IoClose/></button>
+
+                    <motion.button
+                        whileHover={{scale: 1.1}}
+                        whileTap={{scale: 0.9}}
+                        className="item__btn"
+                        style={{color: "red"}}
+                        onClick={() => deleteTodo(todo.id)}
+                    >
+                        <IoClose/>
+                    </motion.button>
                 </div>
                 {todo.completed && <span className="completed">Done</span>}
-            </li>
+            </motion.li>
         </>
     );
 }
