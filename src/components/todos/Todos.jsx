@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {connect} from 'react-redux';
 import {v4 as uuid} from 'uuid';
 import {addNewTodo, deleteTodo, editTodo, getFilterTodos} from "../../redux/store"
@@ -6,15 +6,28 @@ import "./Todos.scss"
 
 function Todos(props) {
     const [todo, setTodo] = useState("")
+    const inputRef = useRef(true)
 
-    const onHandleChange = (e) => {
+    const textAreaChangeFocus = () => {
+        inputRef.current.disabled = false;
+        inputRef.current.focus()
+    }
+
+    const edit = (id, value, e) => {
+        if (e.which === 13) { // key code of "Enter"
+            props.editTodo({id, item: value});
+            inputRef.current.disabled = true
+        }
+    }
+
+    const handleChange = (e) => {
         setTodo(e.target.value)
     }
     // console.log(todo)
     // console.log("props from store", props);
     return (
         <div>
-            <input type="text" onChange={e => onHandleChange(e)}/>
+            <input type="text" onChange={e => handleChange(e)}/>
             <button onClick={() => props.addNewTodo({
                 id: uuid(),
                 item: todo,
@@ -23,10 +36,18 @@ function Todos(props) {
             }>Add new task
             </button>
 
-            {/*Painting of todo list*/}
             <ul>
                 {props.todos.map(todo => {
-                    return <li key={todo.id}>{todo.item}<button>Edit</button><button onClick={() => props.deleteTodo(todo.id)}>Delete</button></li>
+                    return <li key={todo.id}>
+                        <textarea
+                            ref={inputRef}
+                            disabled={inputRef}
+                            defaultValue={todo.item}
+                            onKeyPress={(e) => edit(todo.id, inputRef.current.value, e)}
+                        />
+                        <button onClick={() => textAreaChangeFocus()}>Edit</button>
+                        <button onClick={() => props.deleteTodo(todo.id)}>Delete</button>
+                    </li>
                 })}
             </ul>
         </div>
