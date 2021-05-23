@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
+import {connect} from "react-redux"
 import {v4 as uuid} from 'uuid';
 import TodosList from "./todosList/TodosList";
+import {addNewTodo, completeTodo, deleteTodo, editTodo, getFilterTodos} from "../../redux/store";
 import "./Todos.scss"
 
 function Todos(props) {
@@ -26,4 +28,13 @@ function Todos(props) {
     );
 }
 
-export default Todos;
+const mapStateToProps = (state) => {
+    return {
+        todos: state.todos,
+        filter: state.filter
+    }
+}
+
+const mapDispatchToProps = {addNewTodo, deleteTodo, editTodo, completeTodo, getFilterTodos}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Todos);

@@ -25,9 +25,12 @@ function TodosElement(props) {
                     defaultValue={todo.item}
                     onKeyPress={(e) => edit(todo.id, inputRef.current.value, e)}
                 />
-                <button onClick={() => textAreaChangeFocus()}>Edit</button>
-                <button onClick={() => completeTodo(todo.id)}>Complete</button>
-                <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+                <div>
+                    <button onClick={() => textAreaChangeFocus()}>Edit</button>
+                    <button onClick={() => completeTodo(todo.id)}>Complete</button>
+                    <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+                </div>
+                {todo.completed && <span>Done</span>}
             </li>
         </div>
     );
