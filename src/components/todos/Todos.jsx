@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {connect} from "react-redux"
 import {v4 as uuid} from 'uuid';
+import {GoPlus} from "react-icons/go"
 import TodosList from "./todosList/TodosList";
 import {addNewTodo, completeTodo, deleteTodo, editTodo} from "../../redux/store";
 import "./Todos.scss"
@@ -12,18 +13,28 @@ function Todos(props) {
         setTodo(e.target.value)
     }
 
+    const add = () => {
+        props.addNewTodo({
+            id: uuid(),
+            item: todo,
+            completed: false,
+        })
+        setTodo("")
+    }
+
     return (
-        <div>
-            <input type="text" onChange={e => handleChange(e)}/>
-            <button onClick={() => props.addNewTodo({
-                id: uuid(),
-                item: todo,
-                completed: false,
-            })
-            }>Add new task
-            </button>
+        <>
+            <div className="addTodos__box">
+                <input type="text" value={todo} onChange={e => handleChange(e)} className="addTodos__input"/>
+                <button
+                    className="addTodos__btn"
+                    onClick={add}
+                >
+                    <GoPlus />
+                </button>
+            </div>
             <TodosList/>
-        </div>
+        </>
     );
 }
 

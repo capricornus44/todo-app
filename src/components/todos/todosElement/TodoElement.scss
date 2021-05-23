@@ -1,0 +1,47 @@
+.tasks__item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  height: 8rem;
+  width: 18rem;
+  margin: 0 1rem 1rem 0;
+  padding: 1rem;
+  border-radius: 0.5rem;
+
+  background-color: rgb(180,182, 218);
+  background-image: radial-gradient(circle, hsla(237, 34%, 78%, 0.9) 0%, hsla(219, 88%, 94%, 0.9) 100%);
+}
+
+.item__text {
+  height: 70%;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  resize: none;
+
+  color: #271c6c;
+  background-color: #e1ebfd;
+
+  &:disabled {
+    background-color: transparent;
+  }
+}
+
+.item__btn-box {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+}
+
+.item__btn {
+  margin: 0 0.5rem;
+  border: none;
+  border-radius: 20%;
+
+  font-size: 1.4rem;
+  color: #271c6c;
+
+  background-color: transparent;
+  cursor: pointer;
+}

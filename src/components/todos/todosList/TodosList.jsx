@@ -2,17 +2,18 @@ import React, {useState} from 'react';
 import {connect} from "react-redux"
 import TodosElement from "../todosElement/TodosElement";
 import {addNewTodo, completeTodo, deleteTodo, editTodo} from "../../../redux/store";
+import "./TodosList.scss"
 
 function TodosList(props) {
     const [sort, setSort] = useState("active")
     return (
-        <div>
-            <div>
+        <div className="tasks">
+            <div className="tasks__filter">
                 <button onClick={() => setSort("active")}>Active</button>
                 <button onClick={() => setSort("completed")}>Completed</button>
                 <button onClick={() => setSort("all")}>All</button>
             </div>
-            <ul>
+            <ul className="tasks__list list">
                 {props.todos.length > 0 && sort === "active"
                     ? props.todos.map(todo => {
                         return (

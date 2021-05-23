@@ -1,0 +1,38 @@
+.addTodos__box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.addTodos__input {
+  //align-self: center;
+
+  padding: 0.5rem 1rem;
+  min-width: 15rem;
+  width: 40vw;
+  height: 2.5rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #e1ebfd;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.addTodos__btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 1.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: none;
+  border-radius: 50%;
+
+  font-size: 1.5rem;
+
+  background-color: #e1ebfd;
+  cursor: pointer;
+}

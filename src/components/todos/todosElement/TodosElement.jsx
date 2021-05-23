@@ -1,4 +1,6 @@
 import React, {useRef} from 'react';
+import "./TodoElement.scss"
+import {AiFillEdit, IoCheckmarkDoneSharp, IoClose} from "react-icons/all";
 
 function TodosElement(props) {
     const {todo, editTodo, completeTodo, deleteTodo} = props;
@@ -17,22 +19,25 @@ function TodosElement(props) {
     }
 
     return (
-        <div>
-            <li key={todo.id}>
+        <>
+            <li key={todo.id} className="tasks__item">
                 <textarea
+                    className="item__text"
                     ref={inputRef}
                     disabled={inputRef}
                     defaultValue={todo.item}
                     onKeyPress={(e) => edit(todo.id, inputRef.current.value, e)}
                 />
-                <div>
-                    <button onClick={() => textAreaChangeFocus()}>Edit</button>
-                    <button onClick={() => completeTodo(todo.id)}>Complete</button>
-                    <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+                <div className="item__btn-box">
+                    <button className="item__btn"  onClick={() => textAreaChangeFocus()}><AiFillEdit/></button>
+                    {todo.completed === false && (
+                        <button className="item__btn" style={{color: "green"}} onClick={() => completeTodo(todo.id)}><IoCheckmarkDoneSharp/></button>
+                    )}
+                    <button className="item__btn" style={{color: "red"}} onClick={() => deleteTodo(todo.id)}><IoClose/></button>
                 </div>
-                {todo.completed && <span>Done</span>}
+                {todo.completed && <span className="completed">Done</span>}
             </li>
-        </div>
+        </>
     );
 }
 

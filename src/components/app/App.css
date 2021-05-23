@@ -1,4 +1,10 @@
 .App {
-  font-size: 2em;
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.App__title {
   text-align: center;
+  margin-bottom: 2rem;
 }
