@@ -18,13 +18,21 @@ const todosSlice = createSlice({
                 return todo
             })]
         }),
+        completeTodo: (state, action) => ({
+            ...state, todos: [...state.todos.map(todo => {
+                if(todo.id === action.payload) {
+                    return {...todo, completed: true}
+                }
+                return todo
+            })]
+        }),
         getFilterTodos: (state, action) => ({
             ...state, filter: action.payload
         }),
     }
 })
 
-export const {addNewTodo, deleteTodo, editTodo, getFilterTodos } = todosSlice.actions;
+export const {addNewTodo, deleteTodo, editTodo, completeTodo, getFilterTodos } = todosSlice.actions;
 
 const store = configureStore(todosSlice)
 

@@ -1,7 +1,7 @@
 import React, {useRef, useState} from 'react';
 import {connect} from 'react-redux';
 import {v4 as uuid} from 'uuid';
-import {addNewTodo, deleteTodo, editTodo, getFilterTodos} from "../../redux/store"
+import {addNewTodo, deleteTodo, editTodo, completeTodo, getFilterTodos} from "../../redux/store"
 import "./Todos.scss"
 
 function Todos(props) {
@@ -46,6 +46,7 @@ function Todos(props) {
                             onKeyPress={(e) => edit(todo.id, inputRef.current.value, e)}
                         />
                         <button onClick={() => textAreaChangeFocus()}>Edit</button>
+                        <button onClick={() => props.completeTodo(todo.id)}>Complete</button>
                         <button onClick={() => props.deleteTodo(todo.id)}>Delete</button>
                     </li>
                 })}
@@ -61,6 +62,6 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = {addNewTodo, deleteTodo, editTodo, getFilterTodos}
+const mapDispatchToProps = {addNewTodo, deleteTodo, editTodo, completeTodo, getFilterTodos}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Todos);
