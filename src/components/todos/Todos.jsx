@@ -1,25 +1,39 @@
 import React, {useState} from 'react';
+import {connect} from 'react-redux';
+import {v4 as uuid} from 'uuid';
+import {addNewTodo, deleteTodo, getFilterTodos} from "../../redux/store"
 import "./Todos.scss"
-
 
 function Todos(props) {
     const [todo, setTodo] = useState("")
 
-    const onHandleChange = (event) => {
-        setTodo(event.target.value)
+    const onHandleChange = (e) => {
+        setTodo(e.target.value)
     }
-
-    const onHandleSubmit = (event) => {
-        // event.preventDefault;
-
-    }
-
+    console.log(todo)
+    console.log("props from store", props);
     return (
-        <div className="addTodos">
-            <input type="text" className="todo-input" onChange={event => onHandleChange(event)}/>
-            <button type="submit" className="add-btn" onSubmit={onHandleSubmit}>Add</button>
+        <div>
+            <input type="text" onChange={e => onHandleChange(e)}/>
+            <button onClick={() => props.addNewTodo({
+                id: uuid(),
+                item: todo,
+                completed: false,
+            })
+            }>Add new task
+            </button>
+
         </div>
     );
 }
 
-export default Todos;
+const mapStateToProps = (state) => {
+    return {
+        todos: state.todos,
+        filter: state.filter
+    }
+}
+
+const mapDispatchToProps = {addNewTodo, deleteTodo, getFilterTodos}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Todos);
