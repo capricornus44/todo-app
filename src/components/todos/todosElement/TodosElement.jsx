@@ -1,11 +1,15 @@
 import React, { useRef } from "react"
+import { useDispatch } from "react-redux"
 import { motion } from "framer-motion"
 import { AiFillEdit, IoCheckmarkDoneSharp, IoClose } from "react-icons/all"
+
+import { completeTodo, deleteTodo, editTodo } from "../../../redux/store"
 import "./TodosElement.scss"
 
 function TodosElement(props) {
-  const { todo, editTodo, completeTodo, deleteTodo } = props
+  const { todo } = props
   const inputRef = useRef(true)
+  const dispatch = useDispatch()
 
   const textAreaChangeFocus = () => {
     inputRef.current.disabled = false
@@ -14,9 +18,17 @@ function TodosElement(props) {
 
   const edit = (id, value, e) => {
     if (e.which === 13) {
-      editTodo({ id, item: value })
+      dispatch(editTodo({ id, item: value }))
       inputRef.current.disabled = true
     }
+  }
+
+  const remove = () => {
+    dispatch(deleteTodo(todo.id))
+  }
+
+  const complete = () => {
+    dispatch(completeTodo(todo.id))
   }
 
   return (
@@ -56,7 +68,7 @@ function TodosElement(props) {
               whileTap={{ scale: 0.9 }}
               className="item__btn"
               style={{ color: "green" }}
-              onClick={() => completeTodo(todo.id)}
+              onClick={complete}
             >
               <IoCheckmarkDoneSharp />
             </motion.button>
@@ -67,7 +79,7 @@ function TodosElement(props) {
             whileTap={{ scale: 0.9 }}
             className="item__btn"
             style={{ color: "red" }}
-            onClick={() => deleteTodo(todo.id)}
+            onClick={remove}
           >
             <IoClose />
           </motion.button>
