@@ -1,7 +1,7 @@
 import React, { useRef } from "react"
 import { motion } from "framer-motion"
-import "./TodoElement.scss"
 import { AiFillEdit, IoCheckmarkDoneSharp, IoClose } from "react-icons/all"
+import "./TodosElement.scss"
 
 function TodosElement(props) {
   const { todo, editTodo, completeTodo, deleteTodo } = props

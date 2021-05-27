@@ -11,7 +11,7 @@ import TodosFilter from "./todosFilter/TodosFilter"
 import { addNewTodo } from "../../redux/store"
 import "./Todos.scss"
 
-function Todos(props) {
+function Todos() {
   const [todo, setTodo] = useState("")
   const dispatch = useDispatch()
 
