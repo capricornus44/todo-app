@@ -30,9 +30,9 @@ function Todos() {
     setTodo("")
   }
 
-  const filteredTodos = () => {
+  const filteredValues = () => {
     const normalizedFilter = filter.toLowerCase()
-    return todos.filter((todo) => todo.toLowerCase().includes(normalizedFilter))
+    return todos.filter((todo) => todo.item.toLowerCase().includes(normalizedFilter))
   }
 
   return (
@@ -45,7 +45,7 @@ function Todos() {
         </motion.button>
       </div>
       {todos.length > 0 && <TodosFilter />}
-      <TodosList filteredTodos={filteredTodos} />
+      <TodosList filteredValues={filteredValues} />
       <ToastContainer
         position="top-right"
         autoClose={3000}

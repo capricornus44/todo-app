@@ -1,13 +1,12 @@
 import React, { useState } from "react"
-import { useSelector } from "react-redux"
 import { AnimatePresence, motion } from "framer-motion"
 
 import TodosElement from "../todosElement/TodosElement"
 import "./TodosList.scss"
 
-function TodosList(props) {
+function TodosList({ filteredValues }) {
   const [sort, setSort] = useState("active")
-  const todos = useSelector((state) => state.todos)
+  const filteredTodos = filteredValues()
 
   return (
     <div className="tasks">
@@ -26,20 +25,20 @@ function TodosList(props) {
       </div>
       <ul className="tasks__list list">
         <AnimatePresence>
-          {todos.length > 0 && sort === "active"
-            ? todos.map((todo) => {
+          {filteredTodos.length > 0 && sort === "active"
+            ? filteredTodos.map((todo) => {
                 return todo.completed === false && <TodosElement key={todo.id} todo={todo} />
               })
             : null}
 
-          {todos.length > 0 && sort === "completed"
-            ? todos.map((todo) => {
+          {filteredTodos.length > 0 && sort === "completed"
+            ? filteredTodos.map((todo) => {
                 return todo.completed === true && <TodosElement key={todo.id} todo={todo} />
               })
             : null}
 
-          {todos.length > 0 && sort === "all"
-            ? todos.map((todo) => {
+          {filteredTodos.length > 0 && sort === "all"
+            ? filteredTodos.map((todo) => {
                 return <TodosElement key={todo.id} todo={todo} />
               })
             : null}
