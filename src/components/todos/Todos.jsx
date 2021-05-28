@@ -1,19 +1,21 @@
 import React, { useState } from "react"
-import { useDispatch } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { v4 as uuid } from "uuid"
 import { GoPlus } from "react-icons/go"
 import { motion } from "framer-motion"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+
 import TodosList from "./todosList/TodosList"
 import TodosFilter from "./todosFilter/TodosFilter"
-
 import { addNewTodo } from "../../redux/store"
 import "./Todos.scss"
 
 function Todos() {
   const [todo, setTodo] = useState("")
   const dispatch = useDispatch()
+  const todos = useSelector((state) => state.todos)
+  const filter = useSelector((state) => state.filter)
 
   const handleChange = (e) => {
     setTodo(e.target.value)
@@ -28,6 +30,11 @@ function Todos() {
     setTodo("")
   }
 
+  const filteredTodos = () => {
+    const normalizedFilter = filter.toLowerCase()
+    return todos.filter((todo) => todo.toLowerCase().includes(normalizedFilter))
+  }
+
   return (
     <>
       <div className="addTodos__box">
@@ -37,8 +44,8 @@ function Todos() {
           <GoPlus />
         </motion.button>
       </div>
-      <TodosFilter />
-      <TodosList />
+      {todos.length > 0 && <TodosFilter />}
+      <TodosList filteredTodos={filteredTodos} />
       <ToastContainer
         position="top-right"
         autoClose={3000}

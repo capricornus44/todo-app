@@ -7,7 +7,6 @@ import "./TodosList.scss"
 
 function TodosList(props) {
   const [sort, setSort] = useState("active")
-  //   const dispatch = useDispatch()
   const todos = useSelector((state) => state.todos)
 
   return (
