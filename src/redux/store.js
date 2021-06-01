@@ -4,6 +4,10 @@ const todosSlice = createSlice({
   name: "todos",
   initialState: { todos: [], filter: "" },
   reducers: {
+    initializeTodos: (state, action) => ({
+      ...state,
+      todos: action.payload,
+    }),
     addNewTodo: (state, action) => ({
       ...state,
       todos: [...state.todos, action.payload],
@@ -38,7 +42,7 @@ const todosSlice = createSlice({
   },
 })
 
-export const { addNewTodo, deleteTodo, editTodo, completeTodo, filterTodo } = todosSlice.actions
+export const { addNewTodo, deleteTodo, editTodo, completeTodo, filterTodo, initializeTodos } = todosSlice.actions
 
 const store = configureStore(todosSlice)
 

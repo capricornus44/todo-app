@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { v4 as uuid } from "uuid"
 import { GoPlus } from "react-icons/go"
@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css"
 
 import TodosList from "./todosList/TodosList"
 import TodosFilter from "./todosFilter/TodosFilter"
-import { addNewTodo } from "../../redux/store"
+import { addNewTodo, initializeTodos } from "../../redux/store"
 import "./Todos.scss"
 
 function Todos() {
@@ -16,6 +16,17 @@ function Todos() {
   const dispatch = useDispatch()
   const todos = useSelector((state) => state.todos)
   const filter = useSelector((state) => state.filter)
+
+  useEffect(() => {
+    const todosLS = localStorage.getItem("todosLS")
+    if (todosLS) {
+      dispatch(initializeTodos(JSON.parse(todosLS)))
+    }
+  }, [dispatch])
+
+  useEffect(() => {
+    localStorage.setItem("todosLS", JSON.stringify(todos))
+  }, [todos])
 
   const handleChange = (e) => {
     setTodo(e.target.value)
